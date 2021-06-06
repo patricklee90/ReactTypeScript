@@ -94,4 +94,4 @@ tsc -w
    - It is better defined input type and output type explicitly.
    - simply put, just put all argument with : and DataType.
 
-## Interfaces
+## Interfaces [22:04]
