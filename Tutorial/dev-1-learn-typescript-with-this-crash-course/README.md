@@ -94,4 +94,190 @@ tsc -w
    - It is better defined input type and output type explicitly.
    - simply put, just put all argument with : and DataType.
 
-## Interfaces [22:04]
+## Interfaces
+
+- Tyepscript itself able to understand directly from assignment.
+
+```Typescript
+const user: { name: string; age: number } = {
+  name: "Monster",
+  age: 30,
+};
+```
+
+but to be simplified that reuses of object declaration (model in C#), we can create an interface as shown as below. By default, all value is mendatory in interface, else just add '?' to set it as optional.
+
+```Typescript
+interface UserInterface {
+  name: string;
+  age?: number;
+}
+```
+
+### Function Interfaces
+
+We can add function inside the interface, where it make the programming much more powerful.
+
+```Typescript
+interface User {
+  name: string;
+  age?: number;
+  getMessage(): string;
+}
+```
+
+### Union & Type alias
+
+We can set multiple type into one variable, which we call it union as the definition of operator to combine data types. However, too many types will make the program very fragile which will caused alot of problem in term of design and implementation.
+
+```Typescript
+let pageName: string | number = "1";
+let someProp: string | number | null | undefined | string[] | object
+```
+
+We can define the type as variable because we want our code as understantable as possible.
+
+```Typescript
+type ID = string
+interface UserInterface{
+   id: ID;
+}
+```
+
+Ultimately, union and type alias can be use in very harmony way.
+
+```Typescript
+type PopularTag = string;
+type MaybePopularTag = PopularTag | null;
+```
+
+### Any/ void/ never/ unknown
+
+Typescript understand when do not return something it will automatically void.
+We do not needed to add void to variable, we only use for function.
+
+```Typescript
+const doSomething = () => {
+  console.log("do something");
+};
+
+const doSomething = (): void => {
+  console.log("do something");
+};
+```
+
+Any type is the one that will accept any types of which type off typescript check. Try to avoid this anytime because soon it will become a boom that not yet triggered.
+
+```Typescript
+const something:any = "";
+```
+
+Never will return the code that will never happen, usually people put throw for that.
+
+```Typescript
+const doSomething2 = (): never => {
+  throw "never";
+};
+```
+
+Unknown type usually only deal with unknown type. But we can assign "as" to convert the type to another.
+
+```Typescript
+let vAny: any = 10;
+let vUnknown: unknown = 10;
+
+let s1: string = vAny;
+let s2: string = vUnknown;
+```
+
+but at some case it will caused some error let say from string to number.
+
+```Typescript
+let pageNumber: string = "1";
+//let numericPageNumber: number = pageNumber as number; <- this will caused error
+let numericPageNumber: number = pageNumber as unknown as number;
+```
+
+Try to stick with unkown or void to avoid any.
+
+### Typescript working with DOM
+
+Typescript able to understand DOM out of the box.
+
+```Typescript
+const someElement = document.querySelector(".foo") as HTMLInputElement;
+
+console.log("someElement", someElement.value);
+
+
+const someElement = document.querySelector(".foo");
+
+someElement.addEventListener("blur", (event) => {
+  const target = event.target as HTMLInputElement;
+  console.log("event", target.value);
+});
+```
+
+### Creating class in Typescript
+
+```Typescript
+class User {
+  firstName: string;
+  lastName: string;
+
+  constructor(firstName: string, lastName: string) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  getFullName(): string {
+    return this.firstName + "" + this.lastName;
+  }
+}
+
+const user = new User("Monster", "lessons");
+```
+
+by default everything is public. public private or protected only available in Typescript which it is only available for code checking.
+
+Another powerful type is readonly.
+
+```Typescript
+  readonly unchangableName: string;
+
+  changeUnchangableName(): void {
+    this.unchangableName = "foo";
+  }
+```
+
+Implements: means class must implement under the interface
+
+```Typescript
+interface UserInteface {
+  getFullName(): string;
+}
+
+class User implements UserInteface{
+
+}
+```
+
+static is something where you can get from Classes itself
+
+Inheritance in Typescript with extends
+
+```Typescript
+class Admin extends User {
+  private editor: string;
+
+  setEditor(editor: string): void {
+    this.editor = editor;
+  }
+
+  getEditor(): string {
+    return this.editor;
+  }
+}
+```
+
+### Generic in Typescript [22:30]
