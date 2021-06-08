@@ -99,45 +99,117 @@
 
 // Creating Class in Tyepscript
 
-interface UserInteface {
-  getFullName(): string;
+// interface UserInteface {
+//   getFullName(): string;
+// }
+
+// class User implements UserInteface {
+//   private firstName: string;
+//   private lastName: string;
+//   readonly unchangableName: string;
+//   static readonly maxAge = 50;
+
+//   // changeUnchangableName(): void {
+//   //   this.unchangableName = "foo";
+//   // }
+
+//   constructor(firstName: string, lastName: string) {
+//     this.firstName = firstName;
+//     this.lastName = lastName;
+//     this.unchangableName = firstName;
+//   }
+
+//   getFullName(): string {
+//     return this.firstName + "" + this.lastName;
+//   }
+// }
+
+// class Admin extends User {
+//   private editor: string;
+
+//   setEditor(editor: string): void {
+//     this.editor = editor;
+//   }
+
+//   getEditor(): string {
+//     return this.editor;
+//   }
+// }
+
+// const user = new User("Monster", "lessons");
+// console.log(User.maxAge);
+
+// const admin = new Admin("Foo", "Bar");
+// console.log(admin.getEditor);
+
+// Generic
+
+// const searchStr = "foo";
+// const _hasSearchedString = any<string>(
+//   (el: string) => el.contains(searchStr),
+//   ["foo", "bar", "baz"]
+// );
+
+// const addId = <T extends object>(obj: T) => {
+//   const id = Math.random().toString(16);
+//   return {
+//     ...obj,
+//     id,
+//   };
+// };
+
+// interface UserInteface<T, V> {
+//   name: string;
+//   data: T;
+//   meta: V;
+// }
+
+// const user: UserInteface<{ meta: string }, string> = {
+//   name: "Jack",
+//   data: {
+//     meta: "foo",
+//   },
+//   meta: "bar",
+// };
+
+// const user2: UserInteface<string[]> = {
+//   name: "John",
+//   data: ["foo", "bar", "barz"],
+// };
+
+// const result = addId<UserInteface>(user);
+// console.log("result", result);
+
+const statuses = {
+  notStarted: 0,
+  inProgress: 1,
+  done: 3,
+};
+
+// console.log(statuses.inProgress);
+
+enum StatusEnum {
+  NotStarted,
+  InProgress,
+  Done,
+  Lock,
 }
 
-class User implements UserInteface {
-  private firstName: string;
-  private lastName: string;
-  readonly unchangableName: string;
-  static readonly maxAge = 50;
-
-  // changeUnchangableName(): void {
-  //   this.unchangableName = "foo";
-  // }
-
-  constructor(firstName: string, lastName: string) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.unchangableName = firstName;
-  }
-
-  getFullName(): string {
-    return this.firstName + "" + this.lastName;
-  }
+enum StatusEnum2 {
+  NotStarted = "notStarted", // 0
+  InProgress = "inProgress", // 1
+  Done = "Done", // 2
 }
 
-class Admin extends User {
-  private editor: string;
-
-  setEditor(editor: string): void {
-    this.editor = editor;
-  }
-
-  getEditor(): string {
-    return this.editor;
-  }
+interface Task {
+  id: string;
+  status: StatusEnum2;
 }
 
-const user = new User("Monster", "lessons");
-console.log(User.maxAge);
+let notStartedStatus: StatusEnum = StatusEnum.NotStarted;
 
-const admin = new Admin("Foo", "Bar");
-console.log(admin.getEditor);
+notStartedStatus = 2;
+
+console.log(StatusEnum.InProgress);
+console.log(StatusEnum.Done);
+console.log(StatusEnum.Lock);

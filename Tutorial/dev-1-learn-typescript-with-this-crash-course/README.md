@@ -280,4 +280,120 @@ class Admin extends User {
 }
 ```
 
-### Generic in Typescript [22:30]
+### Generic in Typescript
+
+We can return specifically certain object together with other object. we can do this.
+
+```Typescript
+const addId = (obj) => {
+  const id = Math.random().toString(16);
+  return {
+    ...obj,
+    id,
+  };
+};
+
+const user = {
+  name: "Jack",
+};
+
+const result = addId(user);
+console.log("result", result);
+```
+
+All generic datatype is written in <>
+
+```Typescript
+const addId = <T extends object>(obj: T) => {
+  const id = Math.random().toString(16);
+  return {
+    ...obj,
+    id,
+  };
+};
+```
+
+We can set generic interface.
+
+```Typescript
+interface UserInteface<T> {
+  name: string;
+  data: T;
+}
+
+const user: UserInteface<{ meta: string }> = {
+  name: "Jack",
+  data: {
+    meta: "foo",
+  },
+};
+
+const user2: UserInteface<string[]> = {
+  name: "John",
+  data: ["foo", "bar", "barz"],
+};
+```
+
+We can even passing several data types.
+
+```Typescript
+interface UserInteface<T, V> {
+  name: string;
+  data: T;
+  meta: V;
+}
+```
+
+Understanding function
+
+- <T> means that we can provide different data types.
+- Any return true if at least one element fits the condition.
+
+```Typescript
+const updateArray = append<string>("baz", ["foo", "bar"]);
+
+const searchStr = "foo";
+const _hasSearchedString = any<string>(
+  (el: string) => el.contains(searchStr),
+  ["foo", "bar", "baz"]
+);
+```
+
+### Enum in Function
+
+What is Enum?
+
+It will return the position of the object or array to classify the structure iteration.
+
+```Typescript
+enum StatusEnum {
+  NotStarted,  // 0
+  InProgress,  // 1
+  Done,        // 2
+  Lock,        // 3
+}
+
+enum StatusEnum2 {
+  NotStarted = 'notStarted',  // 0
+  InProgress = 'inProgress',  // 1
+  Done = 'Done',        // 2
+
+}
+
+interface Task{
+   id:string;
+   status: Status2;
+}
+
+// if no need assign
+const notStartedStatus: Status = Status.NotStarted;
+
+// if need assign
+let notStartedStatus: Status = Status.NotStarted;
+
+notStartedStatus = 2;
+
+console.log(Status.InProgress);
+console.log(Status.Done);
+console.log(Status.Lock);
+```
